@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFcore.WebAPI", "EFcore.WebAPI\EFcore.WebAPI.csproj", "{FCE66C38-B054-4312-B2D1-F645ED45ADBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCE66C38-B054-4312-B2D1-F645ED45ADBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE66C38-B054-4312-B2D1-F645ED45ADBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE66C38-B054-4312-B2D1-F645ED45ADBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE66C38-B054-4312-B2D1-F645ED45ADBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD258D68-F46F-42EA-972F-B30B740035EB}
+	EndGlobalSection
+EndGlobal
