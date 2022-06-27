@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFcore.WebAPI.Model
+namespace EFcore.Domain
 {
-    public class IdentidadeSecreta
+    public class Arma
     {
         public int Id { get; set; }
-        public string NomeReal { get; set; }        
-        public int HeroiId { get; set; }
+        public string Nome { get; set; }
         public Heroi Heroi { get; set; }
+        public int HeroiId { get; set; }
     }
 }

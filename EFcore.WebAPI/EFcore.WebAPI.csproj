@@ -34,4 +34,9 @@
 	  <PackageReference Include="NuGet.Frameworks" Version="4.7.2" />	  
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EFCore.Domain\EFCore.Domain.csproj" />
+    <ProjectReference Include="..\EFcore.Repo\EFcore.Repo.csproj" />
+  </ItemGroup>
+
 </Project>
