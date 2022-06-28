@@ -57,28 +57,27 @@ namespace EFcore.Repo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HeroiBatalhas",
+                name: "HeroisBatalhas",
                 columns: table => new
                 {
-                    HeroId = table.Column<int>(nullable: false),
-                    BatalhaId = table.Column<int>(nullable: false),
-                    HeroiId = table.Column<int>(nullable: true)
+                    HeroiId = table.Column<int>(nullable: false),
+                    BatalhaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HeroiBatalhas", x => new { x.BatalhaId, x.HeroId });
+                    table.PrimaryKey("PK_HeroisBatalhas", x => new { x.BatalhaId, x.HeroiId });
                     table.ForeignKey(
-                        name: "FK_HeroiBatalhas_Batalhas_BatalhaId",
+                        name: "FK_HeroisBatalhas_Batalhas_BatalhaId",
                         column: x => x.BatalhaId,
                         principalTable: "Batalhas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HeroiBatalhas_Herois_HeroiId",
+                        name: "FK_HeroisBatalhas_Herois_HeroiId",
                         column: x => x.HeroiId,
                         principalTable: "Herois",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,8 +106,8 @@ namespace EFcore.Repo.Migrations
                 column: "HeroiId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HeroiBatalhas_HeroiId",
-                table: "HeroiBatalhas",
+                name: "IX_HeroisBatalhas_HeroiId",
+                table: "HeroisBatalhas",
                 column: "HeroiId");
 
             migrationBuilder.CreateIndex(
@@ -124,7 +123,7 @@ namespace EFcore.Repo.Migrations
                 name: "Armas");
 
             migrationBuilder.DropTable(
-                name: "HeroiBatalhas");
+                name: "HeroisBatalhas");
 
             migrationBuilder.DropTable(
                 name: "IdentidadeSecretas");

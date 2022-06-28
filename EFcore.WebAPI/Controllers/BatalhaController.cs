@@ -1,5 +1,6 @@
 ﻿using EFcore.Domain;
 using EFcore.repo;
+using EFCore.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,45 +14,43 @@ namespace EFcore.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HeroiController : ControllerBase
+    public class BatalhaController : ControllerBase
     {
         private readonly HeroiContexto _context;
 
-        public HeroiController(HeroiContexto context)
+        public BatalhaController(HeroiContexto context)
         {
             _context = context;
         }
-
-        // GET: api/<HeroiController>
+        // GET: api/<BatalhaController1>
         [HttpGet]
         public ActionResult Get()
         {
             try
             {
-                return Ok(new Heroi());
+                return Ok(new Batalha());
             }
             catch (Exception ex)
             {
 
                 return BadRequest($"Erro:{ex}");
             }
-           
         }
 
-        // GET api/<HeroiController>/5
-        [HttpGet("{id}")]
+        // GET api/<BatalhaController1>/5
+        [HttpGet("{id}",Name = "GetBatalha")]
         public ActionResult Get(int id)
         {
-            return Ok("value");
+            return Ok();
         }
 
-        // POST api/<HeroiController>
+        // POST api/<BatalhaController1>
         [HttpPost]
-        public ActionResult Post(Heroi model)
+        public ActionResult Post(Batalha model)
         {
             try
-            {    
-                _context.Herois.Add(model);
+            {
+                _context.Batalhas.Add(model);
                 _context.SaveChanges();
                 return Ok("Deu certo");
             }
@@ -62,20 +61,20 @@ namespace EFcore.WebAPI.Controllers
             }
         }
 
-        // PUT api/<HeroiController>/5
+        // PUT api/<BatalhaController1>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id,Heroi model)
+        public ActionResult Put(int id, Batalha model)
         {
             try
             {
-                if(_context.Herois.AsNoTracking().FirstOrDefault(h => h.Id == id) != null)
+                if (_context.Batalhas.AsNoTracking().FirstOrDefault(h => h.Id == id) != null)
                 {
                     _context.Update(model);
                     _context.SaveChanges();
                     return Ok("Deu certo");
                 }
                 return Ok("Não encontrado!");
-                
+
             }
             catch (Exception ex)
             {
@@ -84,7 +83,7 @@ namespace EFcore.WebAPI.Controllers
             }
         }
 
-        // DELETE api/<HeroiController>/5
+        // DELETE api/<BatalhaController1>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
