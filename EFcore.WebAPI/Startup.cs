@@ -1,4 +1,5 @@
 using EFcore.repo;
+using EFcore.Repo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +27,13 @@ namespace EFcore.WebAPI
         {
 
             services.AddDbContext<HeroiContexto>(options => 
-                {
+            {
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                });
+            });
+
+            services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddScoped<IEFCoreRepository, EFCoreRepository>();
 
             services.AddRazorPages();
         }

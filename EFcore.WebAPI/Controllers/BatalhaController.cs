@@ -1,5 +1,6 @@
 ﻿using EFcore.Domain;
 using EFcore.repo;
+using EFcore.Repo;
 using EFCore.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,19 +17,21 @@ namespace EFcore.WebAPI.Controllers
     [ApiController]
     public class BatalhaController : ControllerBase
     {
-        private readonly HeroiContexto _context;
+        private readonly IEFCoreRepository _repo;
 
-        public BatalhaController(HeroiContexto context)
+        public BatalhaController(IEFCoreRepository repo)
         {
-            _context = context;
+            
+           _repo = repo;
         }
         // GET: api/<BatalhaController1>
         [HttpGet]
-        public ActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok(new Batalha());
+                var herois = await _repo.GetAllBatalhas(true);
+                return Ok(herois);
             }
             catch (Exception ex)
             {
@@ -38,21 +41,34 @@ namespace EFcore.WebAPI.Controllers
         }
 
         // GET api/<BatalhaController1>/5
-        [HttpGet("{id}",Name = "GetBatalha")]
-        public ActionResult Get(int id)
+        [HttpGet("{id}", Name = "GetBatalha")]
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok();
+            try
+            {
+                var herois = await _repo.GetBatalhaById(id,true);
+                return Ok(herois);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest($"Erro:{ex}");
+            }
         }
 
         // POST api/<BatalhaController1>
         [HttpPost]
-        public ActionResult Post(Batalha model)
+        public async Task<IActionResult> Post(Batalha model)
         {
             try
             {
-                _context.Batalhas.Add(model);
-                _context.SaveChanges();
-                return Ok("Deu certo");
+                _repo.Add(model);
+                if (await _repo.SaveChangeAsync())
+                {
+                    return Ok("Deu certo");
+                }
+                return BadRequest("Não Salvou");                
+                
             }
             catch (Exception ex)
             {
@@ -63,17 +79,20 @@ namespace EFcore.WebAPI.Controllers
 
         // PUT api/<BatalhaController1>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, Batalha model)
+        public async Task<IActionResult> Put(int id, Batalha model)
         {
             try
             {
-                if (_context.Batalhas.AsNoTracking().FirstOrDefault(h => h.Id == id) != null)
+                var heroi = await _repo.GetBatalhaById(id);
+                if (await _repo.GetBatalhaById(id) != null)
                 {
-                    _context.Update(model);
-                    _context.SaveChanges();
-                    return Ok("Deu certo");
+                    _repo.Update(model);
+                    if (await _repo.SaveChangeAsync())
+                    {
+                        return Ok("Deu certo");
+                    }
+
                 }
-                return Ok("Não encontrado!");
 
             }
             catch (Exception ex)
@@ -81,12 +100,33 @@ namespace EFcore.WebAPI.Controllers
 
                 return BadRequest($"Erro:{ex}");
             }
+            return BadRequest($"Não Deletado!");
         }
 
         // DELETE api/<BatalhaController1>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var heroi = await _repo.GetBatalhaById(id);
+                if (await _repo.GetBatalhaById(id) != null)
+                {
+                    _repo.Delete(heroi);
+                    if (await _repo.SaveChangeAsync())
+                    {
+                        return Ok("Deu certo");
+                    }                  
+                    
+                }               
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest($"Erro:{ex}");
+            }
+            return BadRequest($"Não Deletado!");
         }
     }
 }
